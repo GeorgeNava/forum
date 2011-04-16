@@ -1,16 +1,15 @@
-from forum import app,views,admin,setup
+from forum import app,views
 
-root   = app.root
 routes = [
-    (root+''               , views.Forum),
-    (root+'/'              , views.Forum),
-    (root+'/newtopic/(.*)' , views.NewTopic),
-    (root+'/profile/.*'    , views.Profiles),
-    (root+'/images/.*'     , views.ImageHandler),
-    (root+'/notfound'      , views.NotFound),
-    (root+'/(.*)/(.*)'     , views.Messages),
-    (root+'/(.*)'          , views.Topics),
-    (root+'/.*'            , views.NotFound)
+  (app.root+''               , views.Forum),
+  (app.root+'/'              , views.Forum),
+  (app.root+'/newtopic/(.*)' , views.NewTopic),
+  (app.root+'/profile/.*'    , views.Profiles),
+  (app.root+'/images/.*'     , views.ImageHandler),
+  (app.root+'/notfound'      , views.NotFound),
+  (app.root+'/(.*)/(.*)'     , views.Messages),
+  (app.root+'/(.*)'          , views.Topics),
+  (app.root+'/.*'            , views.NotFound)
 ]
 
 def main(): app.control(routes)
