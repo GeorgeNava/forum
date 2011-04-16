@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content" class="wideforum">
+
+  <h2 class="forum_title">{{topic.title}}</h2>
+  <h3 class="forum_desc" >Message posted in {{forum.title}}</h3>
+
+  <div class="nav"><a href="{{root}}">Forum</a> &raquo; <a href="{{root}}/{{forum.forumid}}">{{forum.title}}</a></div>
+  {% if list %}
+    <table class="message">
+    {% for item in list %}
+      <tr>
+        <td class="user">
+          <p><b>{{item.author}}</b><br>{{item.created|longdate}}</p>
+        </td>
+        <td class="text">{{item.content|escape|linebreaks}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% else %}
+  <div class="message">
+    <p>No messages in this topic.</p>
+    <p>To add a new message click the button below</p>
+  </div>
+  {% endif %}
+
+  <hr class="sep" id="comment">
+
+  {% if warn %}{% for item in warn %}<li class="warn">{{item}}</li>{% endfor %}{% endif %}
+
+  <form method="post" class="forum_form">
+    <h2>Express your opinion</h2>
+    <p><input type="textbox" name="author" class="author" value="{{author}}"> Your name or nick <small>(required)</small></p>
+    <p class="noshow"><input type="textbox" name="email"> Email</p>
+    <p class="noshow"><input type="textbox" name="url"> Url</p>
+    <p><textarea name="content">{{content}}</textarea></p>
+    <p><input class="abutton" type="submit" value="Post your message"></p>
+  </form>
+
+  <hr class="sep">
+
+</div>
+{% endblock %}

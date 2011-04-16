@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content" class="wideforum">
+
+  <div class="nav"><a href="{{root}}/admin">Administrative Panel</a> &raquo; <a href="{{root}}/admin/forum">Forum</a></div>
+
+  {% include "admin_side.html" %}
+
+  <div id="main">
+
+    <h3>Forum List</h3>
+    <table class="list">
+    {% if forums %}
+    {% for item in forums %}
+      <tr><td class="time">{{item.created|minitime}}</td><td><sup>{{item.order}}&nbsp;</sup></td><td><b>{{item.title}}</b><br>{{item.description}}</td><td class="del"><a href="delete" onclick="delforum('{{item.forumid}}'); return false;" title="Delete">&#8855;</a></td></tr>
+    {% endfor %}
+    {% else %}
+      <tr><td colspan="2">No forums open.</td></tr>
+    {% endif %}
+    </table>
+
+
+    <form method="post" class="admin_form">
+      <h3>Register new forum</h3>
+      <p><label>Permalink:  </label> <tt>{{root}}/</tt><input type="textbox" name="url" class="w100"></p>
+      <p><label>Forum title:</label> <input type="textbox" name="title" class="w300"></p>
+      <p><label>Description:</label> <input type="textbox" name="desc"  class="w300"></p>
+      <p><label>Order number:</label> <input type="textbox" name="order" size="3"></p>
+      <p><label>&nbsp;</label> <input type="submit" class="abutton" value="Register New Forum"></p>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+
+function delforum(url){
+  evt=window.event
+  ok=confirm('Are you sure you want to delete forum/'+url+'?')
+  if(ok){
+    ajax('/forum/admin/forum?id='+url,ondelete,evt.target)
+  }
+}
+function ondelete(res,target){
+  data=eval('data='+res);
+  if(data.error){ alert(error); return; }
+  if(data.ok){
+    tr=target.parentNode.parentNode; /* a.td.tr */
+    tr.parentNode.removeChild(tr)
+  }  
+}
+
+function ajax(url,callback,target){
+  var http = new XMLHttpRequest();
+  http.open("DELETE",url,true);
+  http.onerror=function(){callback("{'error':'Unknown error from server'}",target);};
+  http.onreadystatechange=function(){if(http.readyState==4){callback(http.responseText,target);}};
+  http.send();
+}
+
+</script>
+{% endblock %}

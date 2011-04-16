@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}Forum{% endblock %}</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="Forum, topics, messages">
+  <meta name="keywords"    content="forum, topics, messages">
+  <meta name="robots"      content="index,follow">
+  <link rel="stylesheet" type="text/css" href="{{root}}/style.css"/>
+  <link rel="icon" href="{{root}}/favicon.ico"/>
+  {% block style %}{#-- Extra stylesheets here --#}{% endblock %}
+</head>
+<body>
+<div id="page">
+{% block header %}
+  <div id="header">
+    <h1 id="headtitle"><a href="{{root}}">Your website</a></h1>
+    <h3 id="headsubtitle">Using the best forum in the world</h3>
+  </div>
+{% endblock %}
+
+{% block main %}
+  <div id="content">
+    <p>Here we put stuff</p>
+  </div><!-- content -->
+{% endblock %}
+
+{% block footer %}
+  <div id="footer">
+   <p>
+     <b>FORUM &copy; {% now "Y" %}</b><br>
+     FORUM is open source, feel free to fork it and make changes as you please<br>
+     Remember to check back once in a while for updates at <a href="http://github.com/GeorgeNava">http://github.com/GeorgeNava</a>
+   </p>
+  </div>
+{% endblock %}
+
+{% block script %}{#-- scripts at the end --#}{% endblock %}
+
+</body>
+</html>

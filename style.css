@@ -1,0 +1,101 @@
+/* 
+COLORS 
+default: 458
+headers: 158
+borders: d4e1e4
+backgnd: ecf1f4
+*/
+
+
+html,body{margin:0; padding:0; font:normal 1em sans-serif;}
+
+a{text-decoration:none; color:#158;}
+a:hover{text-decoration:underline; color:#a22;}
+table{}
+table td{vertical-align:top;}
+
+
+#page{width:960px; min-height:400px; margin:0px auto; padding:10px; text-align:left; color:#458; background:#FFF;}
+#header{padding:0 12px;}
+#headtitle{margin-bottom:0; color:#158;}
+#headtitle a,#headmain a:hover,#headmain a:visited,#headmain a:link{color:#158; text-decoration:none;}
+#headsubtitle{margin-top:0;}
+
+#content { font-size:0.8em }
+
+#footer {clear:both; margin:0 auto; padding:20px 10px;}
+#footer p {font-size:0.9em; margin:0; padding:4px;}
+
+
+.clear {clear:both;}
+.aright{text-align:right;}
+
+.wideforum{min-height:400px; padding:24px 12px;}
+.wideforum h2{color:#158;}
+.wideforum h3{}
+.wideforum h4{color:#158; margin:30px 0 0; padding:0;}
+.wideforum h3 a{color:#158;}
+.wideforum h4 a{color:#158; margin:30px 0 0; padding:0;}
+
+
+.forum_title{margin:20px 0 0; padding:0; font-size:1.9em;}
+.forum_desc{margin:0 0 20px; padding:0;}
+
+
+.forum{width:100%; margin-bottom:10px; background:#ecf1f4; border:1px solid #d4e1e4; border-collapse:collapse;}
+.forum th{padding:12px 8px;}
+.forum td{padding:8px 12px; border:1px solid #d4e1e4; background:#fff;}
+.forum td h4{margin:0; padding:0;}
+.forum td h4 a{color:#158;}
+.forum td h4 a:hover{color:#a22;}
+.forum td p{margin:0; padding:0;}
+.forum .col1{width:50%;}
+.forum .col2{width:10%; text-align:center;}
+.forum .col3{width:10%; text-align:center;}
+.forum .col4{width:30%;}
+
+
+.forum_form{margin-top:4em;}
+.forum_form li{list-style:none;}
+.forum_form .author{width:200px;}
+.forum_form .title{width:400px;}
+.forum_form textarea{width:600px; height:140px; padding:3px; font:normal 1em sans-serif;}
+.warn{color:#b00;}
+.noshow{display:none;}
+.red{color:#c00;}
+
+.message{width:100%; margin-bottom:0; border-collapse:separate; border:1px solid #d4e1e4; border-collapse:collapse;}
+.message td{padding:0 1em; vertical-align:top; border:1px solid #d4e1e4;}
+.user{width:220px; background:#ECF1F4; border-right:1px solid #d4e1e4;}
+.user b{color:#158; font-size:1em; font-weight:bold;}
+.text{width:640px; background:#fff;}
+
+.sep{display:block; margin:4em 0; border:0px solid transparent;}
+
+.nav{margin:1em 0 0 0; padding:6px 12px; font-weight:bold; background:#ecf1f4; border:1px solid #d4e1e4;}
+
+.abutton{padding:4px 12px; /*font-size:1.2em;*/}
+
+/********** ADMIN **********/
+#side{display:table-cell; width:160px; min-height:400px; padding:24px 12px; vertical-align:top;}
+#main{display:table-cell; width:800px; min-height:400px; padding:24px; vertical-align:top; border-left:3px solid #d4e1e4;}
+#side li{list-style:none; padding:3px 0;}
+
+.list{width:100%; border-collapse:collapse; border-top:1px solid #d4e1e4;}
+.list tr{border-bottom:1px solid #d4e1e4;}
+.list td{padding:3px 0;}
+.list td.time{width:160px;}
+.list td.time small{color:#888;}
+.list td.desc{width:560px;}
+.list td.rest{width:240px;}
+.list td.del a{text-decoration:none; font-size:1.2em;}
+.list td sup{font-size:2em;}
+
+.admin_form{margin-top:4em;}
+.admin_form label{display:inline-block; width:100px;}
+.admin_form li{list-style:none;}
+.admin_form .w200{width:200px;}
+.admin_form .w300{width:300px;}
+.admin_form .w400{width:400px;}
+.admin_form textarea{width:600px; height:140px; padding:3px; font:normal 1em sans-serif;}
+.admin_form tt{font-size:1.2em;}

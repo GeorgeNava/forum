@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content" class="wideforum">
+  
+  <div class="nav"><a href="{{root}}/admin">Administrative Panel</a></div>
+
+  {% include "admin_side.html"%}
+  
+  <div id="main">
+
+    <h3>Latest registered users</h3>
+    <table class="list">
+    {% if users %}
+    {% for item in users %}
+      <tr><td class="time">{{item.created|minitime}}</td><td class="desc">{{item.username}}</td><td class="rest">{{item.userid}}</td></tr>
+    {% endfor %}
+    {% else %}
+      <tr><td colspan="3">No users registered yet</td></tr>
+    {% endif %}
+    </table>
+
+    <hr class="sep">
+    
+    <h3>Latest topics</h3>
+    <table class="list">
+    {% if topics %}
+    {% for item in topics %}
+      <tr><td class="time">{{item.created|minitime}}</td><td class="desc">{{item.title}}</td><td class="rest">{{item.lastuser}}</td></tr>
+    {% endfor %}
+    {% else %}
+      <tr><td colspan="3">No topics posted yet</td></tr>
+    {% endif %}
+    </table>
+
+    <hr class="sep">
+
+    <h3>Latest messages</h3>
+    <table class="list">
+    {% if messages %}
+    {% for item in messages %}
+      <tr><td class="time">{{item.created|minitime}}</td><td class="desc">{{item.content}}</td><td class="rest">{{item.author}}</td></tr>
+    {% endfor %}
+    {% else %}
+      <tr><td colspan="3">No messages posted yet</td></tr>
+    {% endif %}
+    </table>
+
+  </div>
+</div>
+{% endblock %}

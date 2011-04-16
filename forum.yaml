@@ -1,0 +1,17 @@
+#---- FORUM ----
+handlers:
+
+- url: /forum/media
+  static_dir: forum/media
+
+- url: /forum/style.css
+  static_files: forum/style.css
+  upload: forum/style.css
+
+- url: /forum/admin.*
+  script: forum/urls_admin.py
+  login: admin
+
+- url: /forum.*
+  script: forum/urls.py
+

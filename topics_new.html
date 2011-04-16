@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content" class="wideforum">
+
+  <h2 class="forum_title"><a href="{{root}}/{{forum.forumid}}">{{forum.title}}</a></h2>
+  <h3 class="forum_desc" >{{forum.description}}</h3>
+
+  {% if warn %}{% for item in warn %}<li class="warn">{{item}}</li>{% endfor %}{% endif %}
+
+  <form method="post" class="forum_form">
+    <h2>New Topic</h2>
+    <p><input type="textbox" name="author" class="author" value="{{author}}"> Author's name</p>
+    <p><input type="textbox" name="title"  class="title" value="{{title}}"> Topic's Title</p>
+    <p class="noshow"><input type="textbox" name="email"> Email</p>
+    <p class="noshow"><input type="textbox" name="url"> Url</p>
+    <p><textarea name="content">{{content}}</textarea></p>
+    <p><input class="abutton" type="submit" value="Register new topic"></p>
+  </form>
+
+</div>
+{% endblock %}
