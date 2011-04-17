@@ -29,14 +29,18 @@
 
   {% if warn %}{% for item in warn %}<li class="warn">{{item}}</li>{% endfor %}{% endif %}
 
+  <h2>Express your opinion</h2>
+  {% if login.logged %}
   <form method="post" class="forum_form">
-    <h2>Express your opinion</h2>
     <p><input type="textbox" name="author" class="author" value="{{author}}"> Your name or nick <small>(required)</small></p>
     <p class="noshow"><input type="textbox" name="email"> Email</p>
     <p class="noshow"><input type="textbox" name="url"> Url</p>
     <p><textarea name="content">{{content}}</textarea></p>
     <p><input class="abutton" type="submit" value="Post your message"></p>
   </form>
+  {% else %}
+  <p><a href="{{login.url}}">To post new messages you must be logged in</a> &raquo;</p>
+  {% endif %}
 
   <hr class="sep">
 

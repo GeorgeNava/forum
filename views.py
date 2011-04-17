@@ -46,20 +46,27 @@ class Messages(app.request):
 class MyProfile(app.request):
   @login_required
   def get(self):
-    you  = users.get_current_user()
-    uid  = you.user_id()
+    user = users.get_current_user()
+    uid  = user.user_id()
     profile = models.getUser(uid)
     if not profile: 
-      mail    = you.nickname()
-      nick    = mail[0:(mail.find('@'))]
+      nick = user.nickname()
+      mail = ''
+      if '@' in nick:
+        mail  = nick
+        nick  = nick[0:(nick.find('@'))]
       isadmin = users.is_current_user_admin()
       ip      = self.ipaddress
       profile = models.newEmptyUser(uid,nick,mail,isadmin,ip)
-    logout = users.create_logout_url(app.root)
-    data={'profile':profile,'logout':logout}
+    data={'profile':profile}
     self.show('myprofile',data)
 
-  # TODO: post and save profile data
+  def post(self):
+    form = forms.myprofile(self)
+    if form.ok or form.redirect:
+      self.redirect(form.url)
+    else:
+      self.show('myprofile',form.data)
 
 class Profiles(app.request):
   def get(self,uid):

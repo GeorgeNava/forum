@@ -16,7 +16,7 @@
   {% if login.logged %}
   <div class="login">
     Logged in as <b>{{login.nick}}</b><br>
-    <a href="{{root}}/myprofile">View profile</a> - <a href="{{login.url}}">Logout</a>
+    {% if login.isadmin %}<a href="{{root}}/admin">Admin Panel</a> - {% endif %}<a href="{{root}}/myprofile">View profile</a> - <a href="{{login.url}}">Logout</a>
   </div>
   {% else %}
   <div class="login">

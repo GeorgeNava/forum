@@ -25,8 +25,8 @@ table td{vertical-align:top;}
 
 #content { font-size:0.8em }
 
-#footer {clear:both; margin:0 auto; padding:20px 10px;}
-#footer p {font-size:0.9em; margin:0; padding:4px;}
+#footer {clear:both; margin:0 auto; padding:20px 10px; border-top:1px solid #d4e1e4;}
+#footer p {font-size:0.8em; margin:0; padding:4px;}
 
 
 .clear {clear:both;}

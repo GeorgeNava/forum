@@ -47,7 +47,10 @@
     </tbody>
   </table>
 
+  {% if login.logged %}
   <button class="abutton" onclick="window.location.href='{{root}}/newtopic/{{forum.forumid}}'">New Topic</button>
-
+  {% else %}
+  <p>To open new topics you must be <a href="{{login.url}}">logged in</a> &raquo;</p>
+  {% endif %}
 </div>
 {% endblock %}

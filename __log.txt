@@ -1,0 +1,17 @@
+TODO:
+
+- after login to post message should redirect to the message
+
+
+
+
+
+DONE:
+
+x Save changes in myprofile
+x new message should be a separate form or hidden if not logged
+x Fix nickname when user.nickname() returns nick instead of email
+  if '@' in nickname: use as email and split it
+  else use as nick
+
+

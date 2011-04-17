@@ -67,12 +67,14 @@ class request(webapp.RequestHandler):
       nick = user.nickname()
       nick = nick[0:(nick.find('@'))].lower()
       login['logged'] = True
-      login['url']    = users.create_logout_url(root)
       login['nick']   = nick
+      login['isadmin']= users.is_current_user_admin()
+      login['url']    = users.create_logout_url(root)
     else:
       login['logged'] = False
-      login['url']    = users.create_login_url(root)
       login['nick']   = ''
+      login['isadmin']= False
+      login['url']    = users.create_login_url(root)
     return login
 
 

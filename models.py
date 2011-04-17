@@ -201,7 +201,7 @@ def getUserByNick(nick):
 
 def newEmptyUser(uid,nick,mail,isadmin,ip):
   rec = ForumUsers(key_name=uid)
-  rec.userid     = uid
+  rec.userid     = str(uid)
   rec.username   = nick
   rec.nickname   = nick
   rec.nicklower  = nick.lower()
@@ -212,9 +212,9 @@ def newEmptyUser(uid,nick,mail,isadmin,ip):
   return rec
 
 def newUser(data):
-  key = data['userid']
-  rec = ForumUsers(key_name=key)
-  rec.userid     = data['userid']
+  uid = data['userid']
+  rec = ForumUsers(key_name=uid)
+  rec.userid     = str(uid)
   rec.username   = data['username']
   rec.nickname   = data['nickname']
   rec.nicklower  = data['nickname'].lower()
@@ -224,6 +224,15 @@ def newUser(data):
   rec.put()
   return rec
 
+def saveUser(data):
+  uid = data['userid']
+  rec = ForumUsers.get_by_key_name(uid)
+  rec.username   = data['username']
+  rec.nickname   = data['nickname']
+  rec.nicklower  = data['nickname'].lower()
+  rec.email      = data['email']
+  rec.put()
+  return rec
 
 #---- IMAGES ----
 def getImagesList(page=1,n=50):

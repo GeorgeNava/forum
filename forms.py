@@ -1,4 +1,5 @@
 import app,models,utils
+from google.appengine.api import users
 
 class Form():
   ok       = False   # form is valid or not
@@ -158,6 +159,7 @@ def newForum(request):
     rec  = models.newForum(data)
     form.ok  = True
     form.url = '%s/admin/forum'%(app.root)
+    form.redirect = True
   else:
     form.ok   = False
     form.warn = warn
@@ -169,5 +171,46 @@ def newForum(request):
       'content':content
     }
   return form
+
+
+def myprofile(request):
+  form   = Form()
+  fields = request.getForm()
+  user   = users.get_current_user()
+  uid    = user.user_id()
+
+  # sanitize
+  name  = utils.toStr(fields.get('username',''),80)
+  nick  = utils.toStr(fields.get('nickname',''),40)
+  email = utils.toStr(fields.get('email'   ,''),80)
+  token = utils.toStr(fields.get('token'   ,''),80)
+  userid= utils.toStr(uid,80)
+  if not name: name = 'Anonymous'
+  
+  # validate
+  ok=True
+  warn=[]
+  if userid != token :
+    warn.append('You need to login to change your profile')
+    ok=False
+  # TODO: check for duplicate nick
+  if not nick:
+    warn.append('Nickname can not be empty')
+    ok=False
+  if ok:
+    data = {'userid':uid,'nickname':nick,'username':name,'email':email}
+    rec  = models.saveUser(data)
+    form.ok  = True
+    form.url = '%s/myprofile'%(app.root)
+    form.redirect = True
+  else:
+    form.ok   = False
+    form.warn = warn
+    form.data = {
+      'profile':models.getUser(uid),
+      'warn'   :warn
+    }
+  return form
+
 
 #---- END ----

@@ -22,7 +22,8 @@ def minitime(dt):
   dd=str(dt.day).zfill(2)
   hh=dt.hour
   if hh>12: hh=hh-12
-  mi=dt.minute
+  hh=str(hh).zfill(2)
+  mi=str(dt.minute).zfill(2)
   am= 'am' if dt.hour<12 else 'pm'
   tt='%s/%s/%s <small>%s:%s %s</small>'%(yy,mm,dd,hh,mi,am)
   return tt

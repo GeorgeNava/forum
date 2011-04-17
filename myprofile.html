@@ -6,18 +6,25 @@
   <h2 class="forum_title">{{profile.username}}</h2>
   <h3 class="forum_desc">Edit your profile</h3>
 
-  <div class="nav"><a href="{{root}}">Forum</a> &raquo; <a href="{{root}}/profile/{{profile.nicklower}}">Profile</a></div>
+  <div class="nav"><a href="{{root}}">Forum</a> &raquo; <a href="{{root}}/myprofile">Profile</a></div>
 
   {% if profile %}
   <form method="post" class="admin_form">
-    <p><label>User ID:  </label> {{profile.userid}}</p>
-    <p><label>Nickname: </label> <input type="textbox" value="{{profile.nickname}}"></p>
-    <p><label>Real name:</label> <input type="textbox" value="{{profile.username}}"></p>
-    <p><label>Email:    </label> <input type="textbox" value="{{profile.email}}"></p>
-    <p><label>Is admin: </label> {{profile.isadmin}}</p>
-    <p><label>Status:   </label> {{profile.status}}</p>
-    <p>Your current IP Address is {{profile.ipaddress}}</p>
+    {% if warn %}{% for item in warn %}<li class="warn">{{item}}</li>{% endfor %}{% endif %}
+    <input type="hidden" name="token" value="{{profile.userid}}">
+    <p><label>Nickname: </label> <input type="textbox" name="nickname" value="{{profile.nickname}}"></p>
+    <p><label>Real name:</label> <input type="textbox" name="username" value="{{profile.username}}"></p>
+    <p><label>Email:    </label> <input type="textbox" name="email"    value="{{profile.email}}" class="w300"></p>
+    <p><label>&nbsp;    </label> <input type="submit"  value="Save my profile" class="abutton"></p>
   </form>
+
+  <hr class="sep">
+  <p>
+    Joined this forum on {{profile.created|minitime}}<br>
+    Your current IP Address is {{profile.ipaddress}}<br>
+    Your status is {{profile.status}} {% if login.isadmin %}- Administrator{% endif %}
+  </p>
+
   {% else %}
   <h3>User suspended or not found in our database</h3>
   {% endif %}
