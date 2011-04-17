@@ -1,5 +1,6 @@
 import app,models,forms,utils
 from google.appengine.api import users
+from google.appengine.ext.webapp.util import login_required
 
 
 class Forum(app.request):
@@ -42,9 +43,24 @@ class Messages(app.request):
       self.show('messages',form.data)
 
 
+class MyProfile(app.request):
+  @login_required
+  def get(self):
+    user = users.get_current_user()
+    # TODO: fix this, use user model
+    nick = user.nickname()
+    nick = nick[0:(nick.find('@'))]
+    uid  = user.user_id()
+    isAdmin = users.is_current_user_admin()
+    logout  = users.create_logout_url(app.root)
+    data={'userid':uid,'nickname':nick,'isadmin':isAdmin,'logout':logout}
+    self.show('profile',data)
+
+
 class Profiles(app.request):
-  def get(self,pid):
-    data={'userid':pid}
+  def get(self,uid):
+    user = models.getUser(uid)
+    data = {'user':user,'userid':uid}
     self.show('profile',data)
 
 

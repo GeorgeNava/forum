@@ -8,10 +8,13 @@ class ForumUsers(db.Model):
   created     = db.DateTimeProperty(auto_now_add=True)
   userid      = db.StringProperty()
   username    = db.StringProperty()
+  nickname    = db.StringProperty()
   password    = db.StringProperty()
+  email       = db.StringProperty()
   ipaddress   = db.StringProperty()
   lastlogin   = db.DateTimeProperty()
-  inactive    = db.IntegerProperty()   # 0.active  1.inactive  2.banned
+  isadmin     = db.IntegerProperty(default=0)   # 0.no      1.yes
+  inactive    = db.IntegerProperty(default=0)   # 0.active  1.inactive  2.banned
 
 class ForumList(db.Model):
   created     = db.DateTimeProperty(auto_now_add=True)
@@ -175,15 +178,40 @@ def viewMessages(fid,tid):
   return data
 
 
+#---- USERS ----
+def getUsers(n=30):
+  recs = ForumUsers.all().order('nickname').fetch(n)
+  return recs
+
+def getUser(uid):
+  if not uid: return None
+  rec = ForumUsers.get_by_key_name(uid)
+  return rec
+
+def newUser(data):
+  key = data['nickname']
+  rec = ForumUsers(key_name=key)
+  rec.userid     = data['userid']
+  rec.username   = data['username']
+  rec.nickname   = data['nickname']
+  #ec.password   = data['password']
+  rec.email      = data['email']
+  rec.ipaddress  = data['ipaddress']
+  #ec.lastlogin  = data['lastlogin']
+  rec.isadmin    = data['isadmin']
+  rec.put()
+  return rec
+
+
 #---- IMAGES ----
 def getImagesList(page=1,n=50):
-  data  = Images.all().order('-created').fetch(n)
+  data  = ForumImages.all().order('-created').fetch(n)
   return data
 
 def saveImage(bits,name=None):
   if not bits: return None
   if not name: name=utils.randomString()
-  image = Images(key_name=name)
+  image = ForumImages(key_name=name)
   format,width,height=utils.getImageInfo(bits)
   image.imageid = name
   image.format  = format
@@ -196,7 +224,7 @@ def saveImage(bits,name=None):
 
 def removeImage(imageid):
   if not imageid: return None
-  img = Images.get_by_key_name(imageid)
+  img = ForumImages.get_by_key_name(imageid)
   if img: img.delete()
   return
 

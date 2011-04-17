@@ -8,7 +8,14 @@
 
   <div class="nav"><a href="{{root}}">Forum</a> &raquo; <a href="{{root}}/profile/{{userid}}">Profile</a></div>
 
-  <p>Under construction. Come back later.</p>
+  {% if user %}
+  <p>User ID:  {{userid}}</p>
+  <p>Nickname: {{user.nickname}}</p>
+  <p>Admin:    {{user.isadmin}}</p>
+  <p><a href="{{logout}}">Logout &raquo;</a></p>
+  {% else %}
+  <h3>User suspended or not found in our database</h3>
+  {% endif %}
 
 </div>
 {% endblock %}
