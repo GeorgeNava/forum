@@ -18,8 +18,13 @@ class Topics(app.request):
 
 
 class NewTopic(app.request):
+  @login_required
   def get(self,fid):
-    data={'forum':models.getForum(fid)}
+    user = users.get_current_user()
+    data={
+      'forum':models.getForum(fid),
+      'author':utils.getNick(user.nickname())
+    }
     self.show('topics_new',data)
 
   def post(self,fid):

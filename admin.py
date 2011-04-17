@@ -32,17 +32,47 @@ class Forum(app.request):
       self.write('{"error":"No id provided"}')
 
 
+class Users(app.request):
+  def get(self):
+    data={'list':models.getUsers(),}
+    self.show('admin_users',data)
+  
+  def delete(self):
+    uid=self.request.get('id')
+    if uid:
+      models.deleteUser(uid)
+      self.write('{"ok":200}')
+    else:
+      self.write('{"error":"No id provided"}')
+
+
+class Topics(app.request):
+  def get(self):
+    data={'list':models.latestTopics(50)}
+    self.show('admin_topics',data)
+
+  def delete(self):
+    tid=self.request.get('id')
+    if tid:
+      models.deleteTopic(tid)
+      self.write('{"ok":200}')
+    else:
+      self.write('{"error":"No id provided"}')
+
+
 class Messages(app.request):
   def get(self):
-    data={}
+    data={'list':models.latestMessages(50)}
     self.show('admin_messages',data)
   
+  def delete(self):
+    mid=self.request.get('id')
+    if mid:
+      models.deleteMessage(mid)
+      self.write('{"ok":200}')
+    else:
+      self.write('{"error":"No id provided"}')
 
-class Moderate(app.request):
-  def get(self):
-    data={}
-    self.show('admin_moderate',data)
-  
 
 class Load(app.request):
   def get(self):

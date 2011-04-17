@@ -148,6 +148,14 @@ def newTopic(data):
   topicCounter(rec.forumid)
   return rec
 
+def deleteTopic(tid):
+  if not tid: return None
+  topic    = ForumTopics.get_by_key_name(tid)
+  messages = ForumMessages.all().filter('topicid =',tid).fetch(999)
+  db.delete(messages)
+  db.delete(topic)
+  return tid
+
 
 #---- MESSAGES ----
 def getMessages(tid,n=30):
@@ -183,9 +191,15 @@ def viewMessages(fid,tid):
   }
   return data
 
+def deleteMessage(mid):
+  if not mid: return None
+  rec = ForumMessages.get_by_key_name(mid)
+  rec.delete()
+  return mid
+
 
 #---- USERS ----
-def getUsers(n=30):
+def getUsers(n=50):
   recs = ForumUsers.all().order('nickname').fetch(n)
   return recs
 
@@ -233,6 +247,13 @@ def saveUser(data):
   rec.email      = data['email']
   rec.put()
   return rec
+
+def deleteUser(uid):
+  if not uid: return None
+  user = ForumUser.get_by_key_name(uid)
+  user.delete()
+  return uid
+
 
 #---- IMAGES ----
 def getImagesList(page=1,n=50):

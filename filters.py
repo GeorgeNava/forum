@@ -28,7 +28,7 @@ def minitime(dt):
   tt='%s/%s/%s <small>%s:%s %s</small>'%(yy,mm,dd,hh,mi,am)
   return tt
 
-def ellipsis(txt,n=80):
+def ellipsis(txt,n=60):
   m=len(txt)
   if m<n: return txt
   else: return txt[:n]+'&hellip;'

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content" class="wideforum">
+
+  <div class="nav"><a href="{{root}}/admin">Administrative Panel</a> &raquo; <a href="{{root}}/admin/messages">Latest Messages</a></div>
+
+  {% include "admin_side.html" %}
+
+  <div id="main">
+
+    <h3>Latest Messages</h3>
+    <table class="list">
+    {% if list %}
+    {% for item in list %}
+      <tr><td class="time">{{item.created|minitime}}</td><td class="desc">{{item.content|ellipsis}}</td><td class="rest">{{item.author}}</td><td class="del"><a href="delete" onclick="delmess('{{item.messageid}}'); return false;" title="Delete">&#8855;</a></td></tr>
+    {% endfor %}
+    {% else %}
+      <tr><td colspan="4">No users registered yet.</td></tr>
+    {% endif %}
+    </table>
+
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+
+function delmess(mid){
+  evt=window.event
+  ok=confirm('Are you sure you want to delete this message?')
+  if(ok){
+    ajax('/forum/admin/messages?id='+mid,ondelete,evt.target)
+  }
+}
+function ondelete(res,target){
+  data=eval('data='+res);
+  if(data.error){ alert(error); return; }
+  if(data.ok){
+    tr=target.parentNode.parentNode; /* a.td.tr */
+    tr.parentNode.removeChild(tr)
+  }  
+}
+
+function ajax(url,callback,target){
+  var http = new XMLHttpRequest();
+  http.open("DELETE",url,true);
+  http.onerror=function(){callback("{'error':'Unknown error from server'}",target);};
+  http.onreadystatechange=function(){if(http.readyState==4){callback(http.responseText,target);}};
+  http.send();
+}
+
+</script>
+{% endblock %}

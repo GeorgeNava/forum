@@ -1,14 +1,24 @@
 TODO:
 
-- after login to post message should redirect to the message
+- finish admin dashboard: users, messages, moderation
 
+- can post anonymous setting
+  - if can post anonymous: show author box, else hide and use nickname
 
+- upload avatars or use gravatar based on email
+  - show avatar in message
+
+- upload images when posting messages
+  - allow user to write [image] to place the image inside text
+  - if not [image] then place image at the end of the message
+  - resize image max 640x480 if bigger
 
 
 
 DONE:
 
-x Save changes in myprofile
+x save changes in myprofile
+x after login to post message should redirect to the message
 x new message should be a separate form or hidden if not logged
 x Fix nickname when user.nickname() returns nick instead of email
   if '@' in nickname: use as email and split it

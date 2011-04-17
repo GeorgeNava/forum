@@ -4,8 +4,9 @@ routes = [
   (app.root+'/admin'         , admin.Panel),
   (app.root+'/admin/load'    , admin.Load),
   (app.root+'/admin/setup'   , admin.Forum),
+  (app.root+'/admin/users'   , admin.Users),
+  (app.root+'/admin/topics'  , admin.Topics),
   (app.root+'/admin/messages', admin.Messages),
-  (app.root+'/admin/moderate', admin.Moderate),
 ]
 
 def main(): app.control(routes)

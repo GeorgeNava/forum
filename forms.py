@@ -16,10 +16,11 @@ class Form():
 def messages(request,fid,tid):
   form   = Form()
   fields = request.getForm()
+  user   = users.get_current_user()
+  uid    = user.user_id()
 
   # sanitize
   author = utils.toStr(fields.get('author','Anonymous'),40)
-  uid    = utils.idify(author)
   email  = fields.get('email')
   url    = fields.get('url')
   content= utils.toTxt(fields.get('content',''),9000)
@@ -49,7 +50,7 @@ def messages(request,fid,tid):
   if ok:
     form.ok   = True
     form.url  = '%s/%s/%s'%(app.root,fid,tid)
-    data      = {'topicid':tid,'forumid':fid,'userid':uid,'author':author,'content':content}
+    data      = {'topicid':tid,'forumid':fid,'userid':str(uid),'author':author,'content':content}
     models.newMessage(data)
   else:
     form.ok   = False
@@ -68,12 +69,13 @@ def messages(request,fid,tid):
 def newTopic(request,fid):
   form   = Form()
   fields = request.getForm()
+  user   = users.get_current_user()
+  uid    = user.user_id()
 
   # sanitize
   title  = utils.toStr(fields.get('title',''),80)
   imp    = utils.toInt(fields.get('importance','0'))
   author = utils.toStr(fields.get('author',''),40)
-  uid    = utils.idify(author)
   email  = fields.get('email')
   url    = fields.get('url')
   content= utils.toTxt(fields.get('content',''),9000)
@@ -105,10 +107,10 @@ def newTopic(request,fid):
     warn.append('Content can not be all caps')
     ok=False
   if ok:
-    dat1 = {'forumid':fid,'title':title,'userid':uid,'author':author,'importance':imp}
+    dat1 = {'forumid':fid,'title':title,'userid':str(uid),'author':author,'importance':imp}
     rec1 = models.newTopic(dat1)
     tid  = rec1.topicid
-    dat2 = {'topicid':tid,'forumid':fid,'userid':uid,'author':author,'content':content}
+    dat2 = {'topicid':tid,'forumid':fid,'userid':str(uid),'author':author,'content':content}
     rec2 = models.newMessage(dat2)
     form.ok  = True
     form.url = '%s/%s/%s'%(app.root,fid,tid)
@@ -184,7 +186,7 @@ def myprofile(request):
   nick  = utils.toStr(fields.get('nickname',''),40)
   email = utils.toStr(fields.get('email'   ,''),80)
   token = utils.toStr(fields.get('token'   ,''),80)
-  userid= utils.toStr(uid,80)
+  userid= str(uid)
   if not name: name = 'Anonymous'
   
   # validate

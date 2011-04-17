@@ -74,7 +74,7 @@ class request(webapp.RequestHandler):
       login['logged'] = False
       login['nick']   = ''
       login['isadmin']= False
-      login['url']    = users.create_login_url(root)
+      login['url']    = users.create_login_url(self.request.url)
     return login
 
 

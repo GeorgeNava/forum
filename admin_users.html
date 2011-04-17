@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content" class="wideforum">
+
+  <div class="nav"><a href="{{root}}/admin">Administrative Panel</a> &raquo; <a href="{{root}}/admin/users">Users</a></div>
+
+  {% include "admin_side.html" %}
+
+  <div id="main">
+
+    <h3>Users List</h3>
+    <table class="list">
+    {% if list %}
+    {% for item in list %}
+      <tr><td class="time">{{item.created|minitime}}</td><td>{{item.nickname}}</td><td>{{item.username}}</td><td>{{item.email}}</td><td class="del"><a href="delete" onclick="deluser('{{item.userid}}','{{item.nickname}}'); return false;" title="Delete">&#8855;</a></td></tr>
+    {% endfor %}
+    {% else %}
+      <tr><td colspan="5">No users registered yet.</td></tr>
+    {% endif %}
+    </table>
+
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+
+function deluser(uid,nick){
+  evt=window.event
+  ok=confirm('Are you sure you want to delete user '+nick+'?')
+  if(ok){
+    ajax('/forum/admin/users?id='+uid,ondelete,evt.target)
+  }
+}
+function ondelete(res,target){
+  data=eval('data='+res);
+  if(data.error){ alert(error); return; }
+  if(data.ok){
+    tr=target.parentNode.parentNode; /* a.td.tr */
+    tr.parentNode.removeChild(tr)
+  }  
+}
+
+function ajax(url,callback,target){
+  var http = new XMLHttpRequest();
+  http.open("DELETE",url,true);
+  http.onerror=function(){callback("{'error':'Unknown error from server'}",target);};
+  http.onreadystatechange=function(){if(http.readyState==4){callback(http.responseText,target);}};
+  http.send();
+}
+
+</script>
+{% endblock %}
