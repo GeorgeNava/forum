@@ -33,6 +33,8 @@ class NewTopic(app.request):
 class Messages(app.request):
   def get(self,fid,tid):
     data = models.viewMessages(fid,tid)
+    user = users.get_current_user()
+    if user: data['author']=utils.getNick(user.nickname())
     self.show('messages',data)
 
   def post(self,fid,tid):
@@ -54,7 +56,7 @@ class MyProfile(app.request):
       mail = ''
       if '@' in nick:
         mail  = nick
-        nick  = nick[0:(nick.find('@'))]
+        nick  = utils.getNick(nick)
       isadmin = users.is_current_user_admin()
       ip      = self.ipaddress
       profile = models.newEmptyUser(uid,nick,mail,isadmin,ip)

@@ -32,7 +32,7 @@
   <h2>Express your opinion</h2>
   {% if login.logged %}
   <form method="post" class="forum_form">
-    <p><input type="textbox" name="author" class="author" value="{{author}}"> Your name or nick <small>(required)</small></p>
+    <p><input type="textbox" name="author" class="author" value="{{author|title}}"> Your name or nick <small>(required)</small></p>
     <p class="noshow"><input type="textbox" name="email"> Email</p>
     <p class="noshow"><input type="textbox" name="url"> Url</p>
     <p><textarea name="content">{{content}}</textarea></p>

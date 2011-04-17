@@ -6,6 +6,11 @@ from google.appengine.ext import db
 from google.appengine.api import mail
 
 
+def getNick(txt):
+  #Sometimes google auth uses an email as nick, so strip after @
+  if '@' in txt: return txt[0:(txt.find('@'))]
+  else: return txt
+
 #---- DATA CONVERSION ----
 def toUid(s,min=0,max=None):
   s = re.sub(r'[^a-zA-Z0-9]','',s)
