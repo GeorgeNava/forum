@@ -5,7 +5,7 @@ from google.appengine.ext.webapp.util import login_required
 
 class Forum(app.request):
   def get(self):
-    data={'list':models.getForums()}
+    data = {'list':models.getForums()}
     self.show('forum',data)
 
 
@@ -46,16 +46,20 @@ class Messages(app.request):
 class MyProfile(app.request):
   @login_required
   def get(self):
-    user = users.get_current_user()
-    # TODO: fix this, use user model
-    nick = user.nickname()
-    nick = nick[0:(nick.find('@'))]
-    uid  = user.user_id()
-    isAdmin = users.is_current_user_admin()
-    logout  = users.create_logout_url(app.root)
-    data={'userid':uid,'nickname':nick,'isadmin':isAdmin,'logout':logout}
-    self.show('profile',data)
+    you  = users.get_current_user()
+    uid  = you.user_id()
+    profile = models.getUser(uid)
+    if not profile: 
+      mail    = you.nickname()
+      nick    = mail[0:(mail.find('@'))]
+      isadmin = users.is_current_user_admin()
+      ip      = self.ipaddress
+      profile = models.newEmptyUser(uid,nick,mail,isadmin,ip)
+    logout = users.create_logout_url(app.root)
+    data={'profile':profile,'logout':logout}
+    self.show('myprofile',data)
 
+  # TODO: post and save profile data
 
 class Profiles(app.request):
   def get(self,uid):

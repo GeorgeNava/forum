@@ -3,7 +3,7 @@ FORUM for AppEngine
 
 Welcome and thanks for your interest in FORUM for AppEngine.
 
-Installing FORUM is simple, just create a 'forum' folder in any Google AppEngine application you own, download all the files in this repo to that folder, and add the following line to your app.yaml file:
+Installing FORUM is simple, just create a 'forum' folder in any Google AppEngine application you own, download all the files from this repo to that folder, and add the following line to your app.yaml file:
 
     includes:
     - forum/forum.yaml

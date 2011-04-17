@@ -9,12 +9,18 @@ class ForumUsers(db.Model):
   userid      = db.StringProperty()
   username    = db.StringProperty()
   nickname    = db.StringProperty()
+  nicklower   = db.StringProperty()
   password    = db.StringProperty()
   email       = db.StringProperty()
   ipaddress   = db.StringProperty()
   lastlogin   = db.DateTimeProperty()
-  isadmin     = db.IntegerProperty(default=0)   # 0.no      1.yes
+  isadmin     = db.BooleanProperty(default=False)
   inactive    = db.IntegerProperty(default=0)   # 0.active  1.inactive  2.banned
+
+  def status(self):
+    if self.inactive==0: return 'Active'
+    if self.inactive==1: return 'Inactive'
+    if self.inactive==2: return 'Banned'
 
 class ForumList(db.Model):
   created     = db.DateTimeProperty(auto_now_add=True)
@@ -188,16 +194,32 @@ def getUser(uid):
   rec = ForumUsers.get_by_key_name(uid)
   return rec
 
+def getUserByNick(nick):
+  if not nick: return None
+  rec = ForumUsers.all().filter('nicklower =',nick.lower()).get()
+  return rec
+
+def newEmptyUser(uid,nick,mail,isadmin,ip):
+  rec = ForumUsers(key_name=uid)
+  rec.userid     = uid
+  rec.username   = nick
+  rec.nickname   = nick
+  rec.nicklower  = nick.lower()
+  rec.email      = mail
+  rec.ipaddress  = ip
+  rec.isadmin    = isadmin
+  rec.put()
+  return rec
+
 def newUser(data):
-  key = data['nickname']
+  key = data['userid']
   rec = ForumUsers(key_name=key)
   rec.userid     = data['userid']
   rec.username   = data['username']
   rec.nickname   = data['nickname']
-  #ec.password   = data['password']
+  rec.nicklower  = data['nickname'].lower()
   rec.email      = data['email']
   rec.ipaddress  = data['ipaddress']
-  #ec.lastlogin  = data['lastlogin']
   rec.isadmin    = data['isadmin']
   rec.put()
   return rec

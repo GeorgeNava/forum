@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content" class="wideforum">
+  
+  <h2 class="forum_title">{{profile.username}}</h2>
+  <h3 class="forum_desc">Edit your profile</h3>
+
+  <div class="nav"><a href="{{root}}">Forum</a> &raquo; <a href="{{root}}/profile/{{profile.nicklower}}">Profile</a></div>
+
+  {% if profile %}
+  <form method="post" class="admin_form">
+    <p><label>User ID:  </label> {{profile.userid}}</p>
+    <p><label>Nickname: </label> <input type="textbox" value="{{profile.nickname}}"></p>
+    <p><label>Real name:</label> <input type="textbox" value="{{profile.username}}"></p>
+    <p><label>Email:    </label> <input type="textbox" value="{{profile.email}}"></p>
+    <p><label>Is admin: </label> {{profile.isadmin}}</p>
+    <p><label>Status:   </label> {{profile.status}}</p>
+    <p>Your current IP Address is {{profile.ipaddress}}</p>
+  </form>
+  {% else %}
+  <h3>User suspended or not found in our database</h3>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -21,6 +21,8 @@ table td{vertical-align:top;}
 #headtitle a,#headmain a:hover,#headmain a:visited,#headmain a:link{color:#158; text-decoration:none;}
 #headsubtitle{margin-top:0;}
 
+.login{float:right; margin:24px 12px; text-align:right; font-size:0.8em; }
+
 #content { font-size:0.8em }
 
 #footer {clear:both; margin:0 auto; padding:20px 10px;}
@@ -29,6 +31,7 @@ table td{vertical-align:top;}
 
 .clear {clear:both;}
 .aright{text-align:right;}
+.floatr{float:right;}
 
 .wideforum{min-height:400px; padding:24px 12px;}
 .wideforum h2{color:#158;}

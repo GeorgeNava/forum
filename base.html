@@ -12,12 +12,27 @@
 </head>
 <body>
 <div id="page">
+{% block login %}
+  {% if login.logged %}
+  <div class="login">
+    Logged in as <b>{{login.nick}}</b><br>
+    <a href="{{root}}/myprofile">View profile</a> - <a href="{{login.url}}">Logout</a>
+  </div>
+  {% else %}
+  <div class="login">
+    You are not logged in<br>
+    <a href="{{login.url}}">Please login to use the forum</a>
+  </div>
+  {% endif %}
+{% endblock %}
+
 {% block header %}
   <div id="header">
     <h1 id="headtitle"><a href="{{root}}">Your website</a></h1>
     <h3 id="headsubtitle">Using the best forum in the world</h3>
   </div>
 {% endblock %}
+
 
 {% block main %}
   <div id="content">
@@ -27,11 +42,11 @@
 
 {% block footer %}
   <div id="footer">
-   <p>
-     <b>FORUM &copy; {% now "Y" %}</b><br>
-     FORUM is open source, feel free to fork it and make changes as you please<br>
-     Remember to check back once in a while for updates at <a href="http://github.com/GeorgeNava">http://github.com/GeorgeNava</a>
-   </p>
+    <p>
+      <b>FORUM &copy; {% now "Y" %}</b><br>
+      FORUM is open source, feel free to fork it and make changes as you please<br>
+      Remember to check back once in a while for updates at <a href="http://github.com/GeorgeNava">http://github.com/GeorgeNava</a>
+    </p>
   </div>
 {% endblock %}
 

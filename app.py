@@ -3,6 +3,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
+from google.appengine.api import users
 template.register_template_library('forum.filters')
 
 root = '/forum'
@@ -41,8 +42,8 @@ class request(webapp.RequestHandler):
     if not '.' in view: view=view+'.'+config.viewext                      # no extension? use .html
     if '/' in view: path=os.path.join(os.path.dirname(__file__),view)    # absolute path? use it!
     else: path=os.path.join(os.path.dirname(__file__),config.viewdir,view)  # no path? use default!
-    data['root']   =root
-    data['session']=self.session
+    data['root']  = root
+    data['login'] = self.checkLogin()
     self.response.out.write(template.render(path,data))
 
   def getForm(self):
@@ -59,6 +60,21 @@ class request(webapp.RequestHandler):
     if file!='': name=os.path.basename(file.filename)
     return name
   
+  def checkLogin(self):
+    login = {}
+    user  = users.get_current_user()
+    if user: 
+      nick = user.nickname()
+      nick = nick[0:(nick.find('@'))].lower()
+      login['logged'] = True
+      login['url']    = users.create_logout_url(root)
+      login['nick']   = nick
+    else:
+      login['logged'] = False
+      login['url']    = users.create_login_url(root)
+      login['nick']   = ''
+    return login
+
 
 # use 'run' if you only use one route to one controller
 def run(url,main):
