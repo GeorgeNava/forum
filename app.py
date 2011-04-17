@@ -7,12 +7,6 @@ template.register_template_library('forum.filters')
 
 root = '/forum'
 
-class routes():
-  index    = root
-  messages = root+'/(.*)/(.*)'
-  newtopic = root+'/newtopic/(.*)'
-  topics   = root+'/(.*)'
-
 class config():
   server   = os.environ['SERVER_NAME']
   isLive   = server=='www.example.com'

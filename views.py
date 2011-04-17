@@ -1,4 +1,6 @@
 import app,models,forms,utils
+from google.appengine.api import users
+
 
 class Forum(app.request):
   def get(self):
@@ -8,7 +10,9 @@ class Forum(app.request):
 
 class Topics(app.request):
   def get(self,fid):
-    data={'forum':models.getForum(fid),'list':models.getTopics(fid)}
+    forum  = models.getForum(fid)
+    topics = models.getTopics(fid)
+    data   = {'forum':forum,'list':topics}
     self.show('topics',data)
 
 
@@ -40,7 +44,7 @@ class Messages(app.request):
 
 class Profiles(app.request):
   def get(self,pid):
-    data={}
+    data={'userid':pid}
     self.show('profile',data)
 
 

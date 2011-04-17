@@ -4,12 +4,12 @@ routes = [
   (app.root+''               , views.Forum),
   (app.root+'/'              , views.Forum),
   (app.root+'/newtopic/(.*)' , views.NewTopic),
-  (app.root+'/profile/.*'    , views.Profiles),
-  (app.root+'/images/.*'     , views.ImageHandler),
+  (app.root+'/profile/(.*)'  , views.Profiles),
+  (app.root+'/images/(.*)'   , views.ImageHandler),
   (app.root+'/notfound'      , views.NotFound),
   (app.root+'/(.*)/(.*)'     , views.Messages),
   (app.root+'/(.*)'          , views.Topics),
-  (app.root+'/.*'            , views.NotFound)
+  (app.root+'.*'             , views.NotFound)
 ]
 
 def main(): app.control(routes)
